@@ -1,0 +1,31 @@
+{
+  "watched_directories": [
+    "C:\\Users\\Hemanth Yasaswi\\Desktop",
+    "C:\\Users\\Hemanth Yasaswi\\Downloads",
+    "C:\\Users\\Hemanth Yasaswi\\Documents"
+  ],
+  "min_file_size_bytes": 1024,
+  "debounce_seconds": 0.5,
+  "stabilization_interval": 0.5,
+  "stabilization_retries": 3,
+  "ignore_extensions": [
+    ".tmp",
+    ".lock",
+    ".part",
+    ".crdownload",
+    ".ddas_tmp"
+  ],
+  "ignore_directories": [
+    "$recycle.bin",
+    "system volume information",
+    ".git",
+    "node_modules",
+    "__pycache__",
+    ".ddas_quarantine"
+  ],
+  "quarantine_path": "C:\\Users\\Hemanth Yasaswi\\.ddas_quarantine",
+  "default_action": "ask",
+  "hash_algorithm": "blake3",
+  "log_level": "INFO",
+  "cpu_throttle_percent": 15
+}

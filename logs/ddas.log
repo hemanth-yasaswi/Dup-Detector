@@ -1,0 +1,38 @@
+{"timestamp": "2026-04-11T17:17:56.109396+00:00", "level": "INFO", "module": "core.settings", "message": "[SETTINGS] no preferences file found — creating defaults at user_prefs.json"}
+{"timestamp": "2026-04-11T17:17:56.109821+00:00", "level": "DEBUG", "module": "core.settings", "message": "[SETTINGS] added default watch dir: C:\\Users\\Hemanth Yasaswi\\Desktop"}
+{"timestamp": "2026-04-11T17:17:56.109986+00:00", "level": "DEBUG", "module": "core.settings", "message": "[SETTINGS] added default watch dir: C:\\Users\\Hemanth Yasaswi\\Downloads"}
+{"timestamp": "2026-04-11T17:17:56.110073+00:00", "level": "DEBUG", "module": "core.settings", "message": "[SETTINGS] added default watch dir: C:\\Users\\Hemanth Yasaswi\\Documents"}
+{"timestamp": "2026-04-11T17:17:56.111519+00:00", "level": "DEBUG", "module": "core.settings", "message": "[SETTINGS] preferences saved to user_prefs.json"}
+{"timestamp": "2026-04-11T17:18:41.765755+00:00", "level": "DEBUG", "module": "core.settings", "message": "[SETTINGS] preferences loaded from user_prefs.json"}
+{"timestamp": "2026-04-11T17:18:42.155960+00:00", "level": "INFO", "module": "core.database", "message": "[DB] database initialized at ddas.db"}
+{"timestamp": "2026-04-11T17:18:42.183016+00:00", "level": "INFO", "module": "startup.reconciliation", "message": "[RECONCILE] complete. checked=0 removed=0"}
+{"timestamp": "2026-04-11T17:18:42.261038+00:00", "level": "DEBUG", "module": "ui.tray", "message": "[TRAY] system tray icon created."}
+{"timestamp": "2026-04-11T17:19:39.111212+00:00", "level": "DEBUG", "module": "core.settings", "message": "[SETTINGS] preferences loaded from user_prefs.json"}
+{"timestamp": "2026-04-11T17:19:39.460389+00:00", "level": "INFO", "module": "core.database", "message": "[DB] database initialized at ddas.db"}
+{"timestamp": "2026-04-11T17:19:39.508621+00:00", "level": "INFO", "module": "startup.reconciliation", "message": "[RECONCILE] complete. checked=0 removed=0"}
+{"timestamp": "2026-04-11T17:19:39.512371+00:00", "level": "DEBUG", "module": "ui.tray", "message": "[TRAY] system tray icon created."}
+{"timestamp": "2026-04-11T17:27:28.894464+00:00", "level": "DEBUG", "module": "core.settings", "message": "[SETTINGS] preferences loaded from user_prefs.json"}
+{"timestamp": "2026-04-11T17:27:29.017857+00:00", "level": "INFO", "module": "core.database", "message": "[DB] database initialized at ddas.db"}
+{"timestamp": "2026-04-11T17:27:29.063231+00:00", "level": "INFO", "module": "startup.reconciliation", "message": "[RECONCILE] complete. checked=0 removed=0"}
+{"timestamp": "2026-04-11T17:27:29.067952+00:00", "level": "DEBUG", "module": "ui.tray", "message": "[TRAY] system tray icon created."}
+{"timestamp": "2026-04-11T17:29:35.006693+00:00", "level": "DEBUG", "module": "core.settings", "message": "[SETTINGS] preferences loaded from user_prefs.json"}
+{"timestamp": "2026-04-11T17:29:35.127028+00:00", "level": "INFO", "module": "core.database", "message": "[DB] database initialized at ddas.db"}
+{"timestamp": "2026-04-11T17:29:35.139820+00:00", "level": "INFO", "module": "startup.reconciliation", "message": "[RECONCILE] complete. checked=0 removed=0"}
+{"timestamp": "2026-04-11T17:29:35.175748+00:00", "level": "DEBUG", "module": "ui.tray", "message": "[TRAY] system tray icon created."}
+{"timestamp": "2026-04-11T17:29:35.176209+00:00", "level": "DEBUG", "module": "ui.tray", "message": "[TRAY] signals connected."}
+{"timestamp": "2026-04-11T17:29:35.178734+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[MONITOR] watching: C:\\Users\\Hemanth Yasaswi\\Desktop"}
+{"timestamp": "2026-04-11T17:29:35.181032+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[MONITOR] watching: C:\\Users\\Hemanth Yasaswi\\Downloads"}
+{"timestamp": "2026-04-11T17:29:35.182898+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[MONITOR] watching: C:\\Users\\Hemanth Yasaswi\\Documents"}
+{"timestamp": "2026-04-11T17:29:35.183448+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[MONITOR] worker loop started."}
+{"timestamp": "2026-04-11T17:29:35.184397+00:00", "level": "DEBUG", "module": "ui.tray", "message": "[TRAY] monitoring started signal received."}
+{"timestamp": "2026-04-11T17:29:35.184636+00:00", "level": "INFO", "module": "services.monitoring_service", "message": "[MONITOR] started watching 3 directories."}
+{"timestamp": "2026-04-11T17:29:35.184984+00:00", "level": "INFO", "module": "__main__", "message": "[MAIN] DDAS started. watching=['C:\\\\Users\\\\Hemanth Yasaswi\\\\Desktop', 'C:\\\\Users\\\\Hemanth Yasaswi\\\\Downloads', 'C:\\\\Users\\\\Hemanth Yasaswi\\\\Documents']"}
+{"timestamp": "2026-04-11T17:29:47.641208+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[MONITOR] worker loop exited."}
+{"timestamp": "2026-04-11T17:29:47.643244+00:00", "level": "DEBUG", "module": "ui.tray", "message": "[TRAY] monitoring stopped signal received."}
+{"timestamp": "2026-04-11T17:29:47.643472+00:00", "level": "INFO", "module": "services.monitoring_service", "message": "[MONITOR] stopped."}
+{"timestamp": "2026-04-11T17:29:52.899446+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[MONITOR] watching: C:\\Users\\Hemanth Yasaswi\\Desktop"}
+{"timestamp": "2026-04-11T17:29:52.901142+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[MONITOR] watching: C:\\Users\\Hemanth Yasaswi\\Downloads"}
+{"timestamp": "2026-04-11T17:29:52.903363+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[MONITOR] watching: C:\\Users\\Hemanth Yasaswi\\Documents"}
+{"timestamp": "2026-04-11T17:29:52.904183+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[MONITOR] worker loop started."}
+{"timestamp": "2026-04-11T17:29:52.909303+00:00", "level": "DEBUG", "module": "ui.tray", "message": "[TRAY] monitoring started signal received."}
+{"timestamp": "2026-04-11T17:29:52.909606+00:00", "level": "INFO", "module": "services.monitoring_service", "message": "[MONITOR] started watching 3 directories."}

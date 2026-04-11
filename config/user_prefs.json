@@ -1,0 +1,8 @@
+{
+  "theme": "light",
+  "watch_dirs": [
+    "E:/Documents"
+  ],
+  "developer_mode": true,
+  "hash_algo": "sha256"
+}
