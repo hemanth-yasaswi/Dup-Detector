@@ -29,28 +29,23 @@ from utils.logger  import get_logger
 
 logger = get_logger(__name__)
 
-
 class _FileEventHandler(FileSystemEventHandler):
     """
     Receives raw watchdog events and feeds them into the debounce buffer.
     One instance is shared across all observers.
+
+    FIXED in this version:
+    - on_deleted: removes file from DB immediately (no debounce)
+    - on_moved:   removes src_path from DB + removes src from debounce buffer
+                  before queuing dest_path for detection
     """
 
     def __init__(self, debounce_buffer: dict, buffer_lock: threading.Lock) -> None:
-        """
-        debounce_buffer : shared dict {abs_path: float (timestamp)}
-        buffer_lock     : lock protecting debounce_buffer writes
-        """
         super().__init__()
         self._debounce_buffer = debounce_buffer
         self._buffer_lock     = buffer_lock
 
     def on_created(self, event: FileSystemEvent) -> None:
-        """
-        Called when a file is created.
-        Ignores directory events.
-        Records event.src_path in debounce_buffer with current monotonic timestamp.
-        """
         if event.is_directory:
             return
         path = str(event.src_path)
@@ -59,11 +54,6 @@ class _FileEventHandler(FileSystemEventHandler):
             self._debounce_buffer[path] = time.monotonic()
 
     def on_modified(self, event: FileSystemEvent) -> None:
-        """
-        Called when a file is modified.
-        Ignores directory events.
-        Records event.src_path in debounce_buffer.
-        """
         if event.is_directory:
             return
         path = str(event.src_path)
@@ -73,17 +63,55 @@ class _FileEventHandler(FileSystemEventHandler):
 
     def on_moved(self, event: FileSystemEvent) -> None:
         """
-        Called when a file is moved/renamed.
-        Ignores directory events.
-        Records event.dest_path (new location) — NOT src_path (file no longer there).
+        File renamed or moved.
+
+        Two things must happen:
+        1. Remove src_path from DB — the file no longer exists at that location.
+        2. Queue dest_path for detection — it is a new file at the destination.
+
+        Also clears any pending debounce entry for src_path so it is never
+        processed after being removed from DB.
         """
         if event.is_directory:
             return
+
+        src_path  = str(event.src_path)
         dest_path = str(event.dest_path)
-        logger.debug("[WATCHER] moved: %s → %s", event.src_path, dest_path)
+        logger.debug("[WATCHER] moved: %s → %s", src_path, dest_path)
+
+        # Remove old path from DB immediately
+        from core.database import db as _db
+        _db.delete_file(src_path)
+        logger.info("[WATCHER] removed moved source from DB: %s", src_path)
+
+        # Clear any stale debounce entry for the old path
         with self._buffer_lock:
+            self._debounce_buffer.pop(src_path, None)
+            # Queue the destination path for duplicate detection
             self._debounce_buffer[dest_path] = time.monotonic()
 
+    def on_deleted(self, event: FileSystemEvent) -> None:
+        """
+        File deleted from watched directory.
+
+        Remove from DB immediately so the ghost record cannot cause false
+        duplicate positives on future detections.
+        No debounce needed — deletion is a terminal event.
+        """
+        if event.is_directory:
+            return
+
+        path = str(event.src_path)
+        logger.debug("[WATCHER] deleted: %s", path)
+
+        # Remove any pending debounce entry so the file is never processed
+        with self._buffer_lock:
+            self._debounce_buffer.pop(path, None)
+
+        # Remove from DB immediately
+        from core.database import db as _db
+        _db.delete_file(path)
+        logger.info("[WATCHER] removed deleted file from DB: %s", path)
 
 class MonitoringService:
     """

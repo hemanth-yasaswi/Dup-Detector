@@ -36,3 +36,157 @@
 {"timestamp": "2026-04-11T17:29:52.904183+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[MONITOR] worker loop started."}
 {"timestamp": "2026-04-11T17:29:52.909303+00:00", "level": "DEBUG", "module": "ui.tray", "message": "[TRAY] monitoring started signal received."}
 {"timestamp": "2026-04-11T17:29:52.909606+00:00", "level": "INFO", "module": "services.monitoring_service", "message": "[MONITOR] started watching 3 directories."}
+{"timestamp": "2026-04-12T16:58:25.071080+00:00", "level": "DEBUG", "module": "core.settings", "message": "[SETTINGS] preferences loaded from user_prefs.json"}
+{"timestamp": "2026-04-12T16:58:25.472095+00:00", "level": "INFO", "module": "core.database", "message": "[DB] database initialized at ddas.db"}
+{"timestamp": "2026-04-12T16:58:25.504407+00:00", "level": "INFO", "module": "startup.reconciliation", "message": "[RECONCILE] complete. checked=0 removed=0"}
+{"timestamp": "2026-04-12T16:58:25.555312+00:00", "level": "DEBUG", "module": "ui.tray", "message": "[TRAY] system tray icon created."}
+{"timestamp": "2026-04-12T16:58:25.555671+00:00", "level": "DEBUG", "module": "ui.tray", "message": "[TRAY] signals connected."}
+{"timestamp": "2026-04-12T16:58:25.558362+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[MONITOR] watching: C:\\Users\\Hemanth Yasaswi\\Desktop"}
+{"timestamp": "2026-04-12T16:58:25.559927+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[MONITOR] watching: C:\\Users\\Hemanth Yasaswi\\Downloads"}
+{"timestamp": "2026-04-12T16:58:25.561238+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[MONITOR] watching: C:\\Users\\Hemanth Yasaswi\\Documents"}
+{"timestamp": "2026-04-12T16:58:25.561780+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[MONITOR] worker loop started."}
+{"timestamp": "2026-04-12T16:58:25.563021+00:00", "level": "DEBUG", "module": "ui.tray", "message": "[TRAY] monitoring started signal received."}
+{"timestamp": "2026-04-12T16:58:25.563201+00:00", "level": "INFO", "module": "services.monitoring_service", "message": "[MONITOR] started watching 3 directories."}
+{"timestamp": "2026-04-12T16:58:25.563505+00:00", "level": "INFO", "module": "__main__", "message": "[MAIN] DDAS started. watching=['C:\\\\Users\\\\Hemanth Yasaswi\\\\Desktop', 'C:\\\\Users\\\\Hemanth Yasaswi\\\\Downloads', 'C:\\\\Users\\\\Hemanth Yasaswi\\\\Documents']"}
+{"timestamp": "2026-04-12T16:58:39.165417+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\New Text Document.txt"}
+{"timestamp": "2026-04-12T16:58:40.229195+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash started: C:\\Users\\Hemanth Yasaswi\\Downloads\\New Text Document.txt"}
+{"timestamp": "2026-04-12T16:58:40.230041+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash done: C:\\Users\\Hemanth Yasaswi\\Downloads\\New Text Document.txt -> 91fd290ec7873537"}
+{"timestamp": "2026-04-12T16:58:49.054774+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] created: C:\\Users\\Hemanth Yasaswi\\Desktop\\New Text Document.txt"}
+{"timestamp": "2026-04-12T16:58:49.055375+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Desktop\\New Text Document.txt"}
+{"timestamp": "2026-04-12T16:58:49.056013+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Desktop\\New Text Document.txt"}
+{"timestamp": "2026-04-12T16:58:49.056548+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Desktop\\New Text Document.txt"}
+{"timestamp": "2026-04-12T16:58:49.056905+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Desktop\\New Text Document.txt"}
+{"timestamp": "2026-04-12T16:58:49.058075+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Desktop\\New Text Document.txt"}
+{"timestamp": "2026-04-12T16:58:50.074896+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash started: C:\\Users\\Hemanth Yasaswi\\Desktop\\New Text Document.txt"}
+{"timestamp": "2026-04-12T16:58:50.105656+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash done: C:\\Users\\Hemanth Yasaswi\\Desktop\\New Text Document.txt -> 91fd290ec7873537"}
+{"timestamp": "2026-04-12T16:58:50.107848+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] full_hash started: C:\\Users\\Hemanth Yasaswi\\Desktop\\New Text Document.txt"}
+{"timestamp": "2026-04-12T16:58:50.108506+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] full_hash done: C:\\Users\\Hemanth Yasaswi\\Desktop\\New Text Document.txt -> 91fd290ec7873537"}
+{"timestamp": "2026-04-12T16:58:54.234729+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] moved: C:\\Users\\Hemanth Yasaswi\\Desktop\\New Text Document.txt → C:\\Users\\Hemanth Yasaswi\\Desktop\\shyam.txt"}
+{"timestamp": "2026-04-12T16:58:54.235428+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Desktop\\shyam.txt"}
+{"timestamp": "2026-04-12T16:58:55.334526+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash started: C:\\Users\\Hemanth Yasaswi\\Desktop\\shyam.txt"}
+{"timestamp": "2026-04-12T16:58:55.335524+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash done: C:\\Users\\Hemanth Yasaswi\\Desktop\\shyam.txt -> 91fd290ec7873537"}
+{"timestamp": "2026-04-12T16:58:55.337058+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] full_hash started: C:\\Users\\Hemanth Yasaswi\\Desktop\\shyam.txt"}
+{"timestamp": "2026-04-12T16:58:55.337622+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] full_hash done: C:\\Users\\Hemanth Yasaswi\\Desktop\\shyam.txt -> 91fd290ec7873537"}
+{"timestamp": "2026-04-12T16:58:55.340312+00:00", "level": "INFO", "module": "services.detection_engine", "message": "[DETECTION] duplicate confirmed: C:\\Users\\Hemanth Yasaswi\\Desktop\\shyam.txt matches C:\\Users\\Hemanth Yasaswi\\Desktop\\New Text Document.txt"}
+{"timestamp": "2026-04-12T16:58:55.340540+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] duplicate alert: C:\\Users\\Hemanth Yasaswi\\Desktop\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:04.369583+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] user cancelled for duplicate: C:\\Users\\Hemanth Yasaswi\\Desktop\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:04.383910+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] user action for C:\\Users\\Hemanth Yasaswi\\Desktop\\shyam.txt: cancel"}
+{"timestamp": "2026-04-12T16:59:11.702700+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] created: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:11.703456+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:11.703947+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:11.704269+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:11.705699+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:12.732165+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash started: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:12.757732+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash done: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt -> 91fd290ec7873537"}
+{"timestamp": "2026-04-12T16:59:12.760731+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] full_hash started: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:12.761449+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] full_hash done: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt -> 91fd290ec7873537"}
+{"timestamp": "2026-04-12T16:59:12.764087+00:00", "level": "INFO", "module": "services.detection_engine", "message": "[DETECTION] duplicate confirmed: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt matches C:\\Users\\Hemanth Yasaswi\\Desktop\\New Text Document.txt"}
+{"timestamp": "2026-04-12T16:59:12.764370+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] duplicate alert: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:30.991299+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] user chose keep_existing for duplicate: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:31.009089+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] user action for C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt: keep_existing"}
+{"timestamp": "2026-04-12T16:59:37.929374+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] created: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:37.929852+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:37.930100+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:37.930633+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:37.930971+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:37.932556+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:39.022367+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash started: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:39.052175+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash done: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt -> 91fd290ec7873537"}
+{"timestamp": "2026-04-12T16:59:39.054721+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] full_hash started: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:39.055440+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] full_hash done: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt -> 91fd290ec7873537"}
+{"timestamp": "2026-04-12T16:59:39.058108+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] duplicate alert: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:39.058014+00:00", "level": "INFO", "module": "services.detection_engine", "message": "[DETECTION] duplicate confirmed: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt matches C:\\Users\\Hemanth Yasaswi\\Desktop\\New Text Document.txt"}
+{"timestamp": "2026-04-12T16:59:53.544518+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] user cancelled for duplicate: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:53.562348+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] user action for C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt: cancel"}
+{"timestamp": "2026-04-12T16:59:55.756696+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] created: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:55.757338+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:55.757811+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:55.758284+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:55.759926+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:56.855343+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash started: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:56.882214+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash done: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt -> 91fd290ec7873537"}
+{"timestamp": "2026-04-12T16:59:56.883766+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] full_hash started: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:56.884335+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] full_hash done: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt -> 91fd290ec7873537"}
+{"timestamp": "2026-04-12T16:59:56.886865+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] duplicate alert: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T16:59:56.886755+00:00", "level": "INFO", "module": "services.detection_engine", "message": "[DETECTION] duplicate confirmed: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt matches C:\\Users\\Hemanth Yasaswi\\Desktop\\New Text Document.txt"}
+{"timestamp": "2026-04-12T17:00:10.128116+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] user chose keep_both for duplicate: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:00:10.147907+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] user action for C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt: keep_both"}
+{"timestamp": "2026-04-12T17:00:12.528109+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] created: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:00:12.528856+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:00:12.529639+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:00:12.530183+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:00:12.531693+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:00:13.565657+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash started: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:00:13.591616+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash done: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt -> 91fd290ec7873537"}
+{"timestamp": "2026-04-12T17:00:13.593256+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] full_hash started: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:00:13.593800+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] full_hash done: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt -> 91fd290ec7873537"}
+{"timestamp": "2026-04-12T17:00:13.596333+00:00", "level": "INFO", "module": "services.detection_engine", "message": "[DETECTION] duplicate confirmed: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt matches C:\\Users\\Hemanth Yasaswi\\Desktop\\New Text Document.txt"}
+{"timestamp": "2026-04-12T17:00:13.596561+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] duplicate alert: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:00:15.615933+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] user cancelled for duplicate: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:00:15.630374+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] user action for C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt: cancel"}
+{"timestamp": "2026-04-12T17:00:19.363052+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] created: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:00:19.363863+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:00:19.364367+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:00:20.074008+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\11 about.jpeg"}
+{"timestamp": "2026-04-12T17:00:20.426173+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash started: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:00:20.426873+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash done: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt -> 91fd290ec7873537"}
+{"timestamp": "2026-04-12T17:00:20.428332+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] full_hash started: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:00:20.429027+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] full_hash done: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt -> 91fd290ec7873537"}
+{"timestamp": "2026-04-12T17:00:20.431782+00:00", "level": "INFO", "module": "services.detection_engine", "message": "[DETECTION] duplicate confirmed: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt matches C:\\Users\\Hemanth Yasaswi\\Desktop\\New Text Document.txt"}
+{"timestamp": "2026-04-12T17:00:20.432023+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] duplicate alert: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:00:21.136248+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash started: C:\\Users\\Hemanth Yasaswi\\Downloads\\11 about.jpeg"}
+{"timestamp": "2026-04-12T17:00:21.148862+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash done: C:\\Users\\Hemanth Yasaswi\\Downloads\\11 about.jpeg -> 9e7f213aa1addbf2"}
+{"timestamp": "2026-04-12T17:00:22.890639+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] user chose keep_existing for duplicate: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:00:22.911271+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] user action for C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt: keep_existing"}
+{"timestamp": "2026-04-12T17:00:24.496773+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\10 setting.jpeg"}
+{"timestamp": "2026-04-12T17:00:25.600595+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash started: C:\\Users\\Hemanth Yasaswi\\Downloads\\10 setting.jpeg"}
+{"timestamp": "2026-04-12T17:00:25.611951+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash done: C:\\Users\\Hemanth Yasaswi\\Downloads\\10 setting.jpeg -> 20ba1255b861d3e3"}
+{"timestamp": "2026-04-12T17:00:26.928454+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] created: C:\\Users\\Hemanth Yasaswi\\Desktop\\shyam.txt"}
+{"timestamp": "2026-04-12T17:00:26.928984+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Desktop\\shyam.txt"}
+{"timestamp": "2026-04-12T17:00:28.026311+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash started: C:\\Users\\Hemanth Yasaswi\\Desktop\\shyam.txt"}
+{"timestamp": "2026-04-12T17:00:28.027213+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash done: C:\\Users\\Hemanth Yasaswi\\Desktop\\shyam.txt -> 91fd290ec7873537"}
+{"timestamp": "2026-04-12T17:00:28.028548+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] full_hash started: C:\\Users\\Hemanth Yasaswi\\Desktop\\shyam.txt"}
+{"timestamp": "2026-04-12T17:00:28.029071+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] full_hash done: C:\\Users\\Hemanth Yasaswi\\Desktop\\shyam.txt -> 91fd290ec7873537"}
+{"timestamp": "2026-04-12T17:00:28.031564+00:00", "level": "INFO", "module": "services.detection_engine", "message": "[DETECTION] duplicate confirmed: C:\\Users\\Hemanth Yasaswi\\Desktop\\shyam.txt matches C:\\Users\\Hemanth Yasaswi\\Desktop\\New Text Document.txt"}
+{"timestamp": "2026-04-12T17:00:28.031782+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] duplicate alert: C:\\Users\\Hemanth Yasaswi\\Desktop\\shyam.txt"}
+{"timestamp": "2026-04-12T17:00:31.405948+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] user chose keep_both for duplicate: C:\\Users\\Hemanth Yasaswi\\Desktop\\shyam.txt"}
+{"timestamp": "2026-04-12T17:00:31.419939+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] user action for C:\\Users\\Hemanth Yasaswi\\Desktop\\shyam.txt: keep_both"}
+{"timestamp": "2026-04-12T17:02:41.982558+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] created: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:02:41.983114+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:02:41.983620+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:02:41.983904+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:02:41.984212+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:02:41.985081+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:02:43.014638+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash started: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:02:43.042489+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash done: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt -> 91fd290ec7873537"}
+{"timestamp": "2026-04-12T17:02:43.044195+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] full_hash started: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:02:43.044922+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] full_hash done: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt -> 91fd290ec7873537"}
+{"timestamp": "2026-04-12T17:02:43.047586+00:00", "level": "INFO", "module": "services.detection_engine", "message": "[DETECTION] duplicate confirmed: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt matches C:\\Users\\Hemanth Yasaswi\\Desktop\\New Text Document.txt"}
+{"timestamp": "2026-04-12T17:02:43.047801+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] duplicate alert: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:02:59.746006+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] user cancelled for duplicate: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:02:59.763556+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] user action for C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt: cancel"}
+{"timestamp": "2026-04-12T17:03:40.347410+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] created: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:03:40.348070+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:03:40.348684+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:03:40.349260+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:03:40.350832+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:03:41.427920+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash started: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:03:41.457505+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash done: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt -> 91fd290ec7873537"}
+{"timestamp": "2026-04-12T17:03:41.459406+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] full_hash started: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:03:41.459978+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] full_hash done: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt -> 91fd290ec7873537"}
+{"timestamp": "2026-04-12T17:03:41.462552+00:00", "level": "INFO", "module": "services.detection_engine", "message": "[DETECTION] duplicate confirmed: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt matches C:\\Users\\Hemanth Yasaswi\\Desktop\\New Text Document.txt"}
+{"timestamp": "2026-04-12T17:03:41.462779+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] duplicate alert: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:03:45.771480+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] user cancelled for duplicate: C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt"}
+{"timestamp": "2026-04-12T17:03:45.787344+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] user action for C:\\Users\\Hemanth Yasaswi\\Downloads\\shyam.txt: cancel"}
+{"timestamp": "2026-04-12T17:04:15.307212+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] created: C:\\Users\\Hemanth Yasaswi\\Downloads\\hemanth.txt"}
+{"timestamp": "2026-04-12T17:04:15.307819+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\hemanth.txt"}
+{"timestamp": "2026-04-12T17:04:15.308329+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\hemanth.txt"}
+{"timestamp": "2026-04-12T17:04:15.308596+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\hemanth.txt"}
+{"timestamp": "2026-04-12T17:04:15.309310+00:00", "level": "DEBUG", "module": "services.monitoring_service", "message": "[WATCHER] modified: C:\\Users\\Hemanth Yasaswi\\Downloads\\hemanth.txt"}
+{"timestamp": "2026-04-12T17:04:16.328776+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash started: C:\\Users\\Hemanth Yasaswi\\Downloads\\hemanth.txt"}
+{"timestamp": "2026-04-12T17:04:16.356057+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] partial_hash done: C:\\Users\\Hemanth Yasaswi\\Downloads\\hemanth.txt -> 91fd290ec7873537"}
+{"timestamp": "2026-04-12T17:04:16.358315+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] full_hash started: C:\\Users\\Hemanth Yasaswi\\Downloads\\hemanth.txt"}
+{"timestamp": "2026-04-12T17:04:16.358815+00:00", "level": "DEBUG", "module": "services.hasher", "message": "[HASHER] full_hash done: C:\\Users\\Hemanth Yasaswi\\Downloads\\hemanth.txt -> 91fd290ec7873537"}
+{"timestamp": "2026-04-12T17:04:16.361529+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] duplicate alert: C:\\Users\\Hemanth Yasaswi\\Downloads\\hemanth.txt"}
+{"timestamp": "2026-04-12T17:04:16.361409+00:00", "level": "INFO", "module": "services.detection_engine", "message": "[DETECTION] duplicate confirmed: C:\\Users\\Hemanth Yasaswi\\Downloads\\hemanth.txt matches C:\\Users\\Hemanth Yasaswi\\Desktop\\New Text Document.txt"}
+{"timestamp": "2026-04-12T17:04:26.005244+00:00", "level": "INFO", "module": "ui.tray", "message": "[TRAY] user action for C:\\Users\\Hemanth Yasaswi\\Downloads\\hemanth.txt: cancel"}
