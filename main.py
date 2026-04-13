@@ -20,39 +20,35 @@ logger = get_logger(__name__)
 
 
 def main() -> int:
-    """
-    Application startup sequence:
-
-    1. Create QApplication with sys.argv.
-       Set: app.setQuitOnLastWindowClosed(False)  ← critical for tray-only app
-
-    2. Initialize database: db.initialize()
-
-    3. Run reconciliation in background: start_reconciliation_thread()
-
-    4. Create TrayApplication(app).
-       TrayApplication.__init__ handles signal wiring and monitoring start.
-
-    5. Log INFO: [MAIN] DDAS started. watching={settings.watched_directories}
-
-    6. return app.exec()
-    """
     app = QApplication(sys.argv)
-
-    # Critical for a tray-only app — prevents exit when dialog closes
     app.setQuitOnLastWindowClosed(False)
 
-    # Initialise DB (creates tables / indexes if needed)
+    # Initialize DB (creates all tables including Phase 2 additions)
     db.initialize()
 
-    # Reconcile stale DB records against filesystem (background thread)
+    # Recover any incomplete operations from a previous crash
+    from resolution.journal import journal
+    recovered = journal.recover_pending()
+    if recovered:
+        logger.warning("[MAIN] recovered %d incomplete operations from last session", recovered)
+
+    # Reconcile stale DB records
     start_reconciliation_thread()
 
-    # Build and show tray (also wires signals and starts monitoring)
-    _tray_app = TrayApplication(app)  # noqa: kept alive via local reference for Qt ownership
+    # Build tray
+    _tray_app = TrayApplication(app)
+
+    # Build main window and connect to tray
+    from ui.main_window import MainWindow
+    from ui.theme import apply_theme
+    from config.settings import load_user_prefs
+    prefs = load_user_prefs()
+    _main_window = MainWindow(app)
+    apply_theme(app, prefs.get("theme", "dark"))
+    _tray_app.set_main_window(_main_window)
+    # Do NOT call _main_window.show() here — window opens only on tray click
 
     logger.info("[MAIN] DDAS started. watching=%s", settings.watched_directories)
-
     return app.exec()
 
 

@@ -89,6 +89,34 @@ class DatabaseManager:
                 cur.execute("CREATE INDEX IF NOT EXISTS idx_full_hash    ON files(full_hash)")
                 cur.execute("CREATE INDEX IF NOT EXISTS idx_status       ON files(status)")
 
+                cur.execute("""
+                    CREATE TABLE IF NOT EXISTS operations_log (
+                        id           INTEGER PRIMARY KEY AUTOINCREMENT,
+                        timestamp    REAL    NOT NULL,
+                        original_path TEXT   NOT NULL,
+                        duplicate_path TEXT  NOT NULL,
+                        action        TEXT   NOT NULL,
+                        status        TEXT   NOT NULL DEFAULT 'pending',
+                        tmp_path      TEXT,
+                        error_msg     TEXT
+                    )
+                """)
+                cur.execute("CREATE INDEX IF NOT EXISTS idx_oplog_status ON operations_log(status)")
+                cur.execute("CREATE INDEX IF NOT EXISTS idx_oplog_ts ON operations_log(timestamp)")
+
+                cur.execute("""
+                    CREATE TABLE IF NOT EXISTS quarantine (
+                        id              INTEGER PRIMARY KEY AUTOINCREMENT,
+                        original_path   TEXT    NOT NULL,
+                        quarantine_path TEXT    NOT NULL UNIQUE,
+                        size_bytes      INTEGER NOT NULL,
+                        quarantined_at  REAL    NOT NULL,
+                        full_hash       TEXT,
+                        restored        INTEGER NOT NULL DEFAULT 0
+                    )
+                """)
+                cur.execute("CREATE INDEX IF NOT EXISTS idx_quarantine_hash ON quarantine(full_hash)")
+
                 self._conn.commit()
             logger.info("[DB] database initialized at %s", self._db_path)
         except sqlite3.Error as e:
@@ -318,6 +346,139 @@ class DatabaseManager:
         except Exception as e:
             logger.error("[DB] unexpected error in get_stats: %s", e)
             return empty
+
+
+    def log_operation(
+        self,
+        original_path:  str,
+        duplicate_path: str,
+        action:         str,
+        tmp_path:       str | None = None,
+    ) -> int | None:
+        """
+        Insert a pending operation into operations_log.
+        Returns the new row id, or None on error.
+        action values: "keep_existing", "keep_both", "delete_duplicate",
+                       "quarantine", "replace", "compare"
+        """
+        now = time.time()
+        try:
+            with self._lock:
+                cur = self._conn.cursor()
+                cur.execute(
+                    """
+                    INSERT INTO operations_log
+                        (timestamp, original_path, duplicate_path, action, status, tmp_path)
+                    VALUES (?, ?, ?, ?, 'pending', ?)
+                    """,
+                    (now, original_path, duplicate_path, action, tmp_path),
+                )
+                self._conn.commit()
+                return cur.lastrowid
+        except sqlite3.Error as e:
+            logger.error("[DB] log_operation failed: %s", e)
+            return None
+        except Exception as e:
+            logger.error("[DB] unexpected error in log_operation: %s", e)
+            return None
+
+    def complete_operation(self, op_id: int, status: str, error_msg: str | None = None) -> bool:
+        """
+        Update an operation record to 'completed' or 'failed'.
+        status values: "completed", "failed", "rolled_back"
+        Returns True on success.
+        """
+        try:
+            with self._lock:
+                cur = self._conn.cursor()
+                cur.execute(
+                    "UPDATE operations_log SET status = ?, error_msg = ? WHERE id = ?",
+                    (status, error_msg, op_id),
+                )
+                self._conn.commit()
+            return True
+        except sqlite3.Error as e:
+            logger.error("[DB] complete_operation failed for op_id=%d: %s", op_id, e)
+            return False
+        except Exception as e:
+            logger.error("[DB] unexpected error in complete_operation for op_id=%d: %s", op_id, e)
+            return False
+
+    def get_pending_operations(self) -> List[dict]:
+        """
+        Return all operations with status='pending'.
+        Used at startup to detect and roll back incomplete operations.
+        """
+        try:
+            cur = self._conn.cursor()
+            cur.execute("SELECT * FROM operations_log WHERE status = 'pending'")
+            return [self._row_to_dict(r) for r in cur.fetchall()]
+        except sqlite3.Error as e:
+            logger.error("[DB] get_pending_operations failed: %s", e)
+            return []
+        except Exception as e:
+            logger.error("[DB] unexpected error in get_pending_operations: %s", e)
+            return []
+
+    def log_quarantine(
+        self,
+        original_path:   str,
+        quarantine_path: str,
+        size_bytes:      int,
+        full_hash:       str | None = None,
+    ) -> bool:
+        """Insert a quarantine record. Returns True on success."""
+        now = time.time()
+        try:
+            with self._lock:
+                cur = self._conn.cursor()
+                cur.execute(
+                    """
+                    INSERT OR IGNORE INTO quarantine
+                        (original_path, quarantine_path, size_bytes, quarantined_at, full_hash)
+                    VALUES (?, ?, ?, ?, ?)
+                    """,
+                    (original_path, quarantine_path, size_bytes, now, full_hash),
+                )
+                self._conn.commit()
+            return True
+        except sqlite3.Error as e:
+            logger.error("[DB] log_quarantine failed: %s", e)
+            return False
+        except Exception as e:
+            logger.error("[DB] unexpected error in log_quarantine: %s", e)
+            return False
+
+    def get_quarantined_files(self) -> List[dict]:
+        """Return all non-restored quarantine records."""
+        try:
+            cur = self._conn.cursor()
+            cur.execute("SELECT * FROM quarantine WHERE restored = 0")
+            return [self._row_to_dict(r) for r in cur.fetchall()]
+        except sqlite3.Error as e:
+            logger.error("[DB] get_quarantined_files failed: %s", e)
+            return []
+        except Exception as e:
+            logger.error("[DB] unexpected error in get_quarantined_files: %s", e)
+            return []
+
+    def mark_quarantine_restored(self, quarantine_path: str) -> bool:
+        """Mark a quarantine record as restored=1."""
+        try:
+            with self._lock:
+                cur = self._conn.cursor()
+                cur.execute(
+                    "UPDATE quarantine SET restored = 1 WHERE quarantine_path = ?",
+                    (quarantine_path,),
+                )
+                self._conn.commit()
+            return True
+        except sqlite3.Error as e:
+            logger.error("[DB] mark_quarantine_restored failed: %s", e)
+            return False
+        except Exception as e:
+            logger.error("[DB] unexpected error in mark_quarantine_restored: %s", e)
+            return False
 
 
 # Module-level singleton

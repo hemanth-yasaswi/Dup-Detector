@@ -50,6 +50,30 @@ class AppSignals(QObject):
     scan_stats_updated = pyqtSignal(int, int)
     error_occurred     = pyqtSignal(str, str)
 
+    # Phase 2 signals -------------------------------------------------------
+
+    # Emitted by FileExecutor after successfully executing a user action.
+    # arg0: action taken ("keep_existing", "keep_both", "delete_duplicate",
+    #                     "quarantine", "replace")
+    # arg1: duplicate file path
+    # arg2: original file path
+    action_executed = pyqtSignal(str, str, str)
+
+    # Emitted when a file is quarantined.
+    # arg0: original path
+    # arg1: quarantine path
+    file_quarantined = pyqtSignal(str, str)
+
+    # Emitted when an operation fails after user action.
+    # arg0: action attempted
+    # arg1: file path
+    # arg2: error message
+    action_failed = pyqtSignal(str, str, str)
+
+    # Emitted when a duplicate group is resolved (all copies handled).
+    # arg0: full_hash of the resolved group
+    duplicate_resolved = pyqtSignal(str)
+
 
 # Module-level singleton — import this object everywhere
 signals = AppSignals()

@@ -56,6 +56,17 @@ class Settings:
     log_level:            str = "INFO"
     cpu_throttle_percent: int = 15
 
+    # Phase 2 additions -----------------------------------------------------
+    quarantine_enabled:           bool = True
+    auto_quarantine_on_uncertain: bool = False
+    keep_both_suffix:             str  = "_copy"
+    # Suffix appended when user chooses "keep_both"
+    # e.g. "report.pdf" → "report_copy.pdf" (or _copy_2 if that exists too)
+
+    preview_max_text_lines:  int = 200
+    preview_max_image_bytes: int = 204800   # 200KB before thumbnail fallback
+    preview_diff_max_lines:  int = 100
+
     # ------------------------------------------------------------------
     # Persistence
     # ------------------------------------------------------------------

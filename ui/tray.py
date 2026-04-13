@@ -14,9 +14,12 @@ from PyQt6.QtWidgets import (
     QDialog,
     QVBoxLayout,
     QHBoxLayout,
+    QGridLayout,
     QLabel,
     QPushButton,
     QFrame,
+    QTextEdit,
+    QWidget,
 )
 from PyQt6.QtGui  import QIcon, QPixmap, QColor, QPainter
 from PyQt6.QtCore import Qt, QSize, pyqtSlot, QObject
@@ -24,6 +27,8 @@ from PyQt6.QtCore import Qt, QSize, pyqtSlot, QObject
 from core.signals  import signals
 from core.settings import settings
 from services.monitoring_service import monitor
+from resolution.executor   import executor
+from services.preview_service import preview_service
 from utils.logger  import get_logger
 
 logger = get_logger(__name__)
@@ -71,22 +76,22 @@ def _format_size(path: str) -> str:
 
 class DuplicateAlertDialog(QDialog):
     """
-    Modal dialog shown when a duplicate file is detected.
+    Modal dialog for duplicate resolution.
 
-    Layout:
-    ┌──────────────────────────────────────────────┐
-    │  Duplicate File Detected                      │
-    │                                              │
-    │  Original:   /path/to/original/file.txt      │
-    │  Duplicate:  /path/to/duplicate/file.txt     │
-    │                                              │
-    │  Sizes: 2.4 MB each                          │
-    │                                              │
-    │  [Keep Existing]  [Keep Both]  [Cancel]      │
-    └──────────────────────────────────────────────┘
+    Shows:
+      - Original file path + size + modified date
+      - Duplicate file path + size + modified date
+      - Optional side-by-side preview (text diff or image thumbnails)
+      - Action buttons: Keep Existing | Keep Both | Quarantine | Replace | Compare | Cancel
 
-    Properties after exec():
-      .chosen_action : str — "keep_existing" | "keep_both" | "cancel"
+    After exec():
+      .chosen_action : str — the action selected by the user
+                       values: "keep_existing" | "keep_both" | "quarantine"
+                                "replace" | "compare" | "cancel"
+
+    Execution of the action is NOT done in this dialog.
+    The dialog only captures the choice. TrayApplication._on_duplicate_found
+    calls FileExecutor.execute() after the dialog closes.
     """
 
     def __init__(self, original_path: str, duplicate_path: str, parent=None) -> None:
@@ -94,15 +99,18 @@ class DuplicateAlertDialog(QDialog):
         self.original_path  = original_path
         self.duplicate_path = duplicate_path
         self.chosen_action  = "cancel"
+
+        # Load preview data (fast — capped at 200KB/200 lines)
+        self._preview_data = preview_service.compare(original_path, duplicate_path)
+
         self._build_ui()
 
     def _build_ui(self) -> None:
-        """Build the dialog layout."""
         self.setWindowTitle("DDAS — Duplicate Detected")
-        self.setFixedWidth(520)
-        self.setWindowFlags(
-            Qt.WindowType.Dialog | Qt.WindowType.WindowStaysOnTopHint
-        )
+        self.setMinimumWidth(560)
+        self.setMaximumWidth(720)
+        self.setWindowFlags(Qt.WindowType.Dialog | Qt.WindowType.WindowStaysOnTopHint)
+
         self.setStyleSheet("""
             QDialog {
                 background-color: #f8f9fa;
@@ -119,161 +127,249 @@ class DuplicateAlertDialog(QDialog):
                 color: #6c757d;
                 margin-bottom: 12px;
             }
-            QLabel.fieldLabel {
-                font-size: 11px;
-                font-weight: bold;
-                color: #495057;
-            }
-            QLabel.fieldValue {
-                font-size: 11px;
-                color: #212529;
-                background-color: #e9ecef;
-                border-radius: 4px;
-                padding: 4px 6px;
-            }
-            QLabel#sizeLabel {
-                font-size: 11px;
-                color: #6c757d;
-                margin-top: 4px;
-            }
             QPushButton {
                 font-size: 12px;
                 font-weight: 600;
                 padding: 8px 18px;
                 border-radius: 6px;
                 border: none;
-                min-width: 110px;
+                min-width: 100px;
             }
             QPushButton#btnKeepExisting {
                 background-color: #4682b4;
                 color: white;
             }
-            QPushButton#btnKeepExisting:hover {
-                background-color: #3a6fa0;
-            }
+            QPushButton#btnKeepExisting:hover { background-color: #3a6fa0; }
             QPushButton#btnKeepBoth {
                 background-color: #28a745;
                 color: white;
             }
-            QPushButton#btnKeepBoth:hover {
-                background-color: #218838;
-            }
+            QPushButton#btnKeepBoth:hover { background-color: #218838; }
             QPushButton#btnCancel {
                 background-color: #e9ecef;
                 color: #495057;
             }
-            QPushButton#btnCancel:hover {
-                background-color: #dee2e6;
+            QPushButton#btnCancel:hover { background-color: #dee2e6; }
+            QPushButton#btnQuarantine {
+                background-color: #e67e22;
+                color: white;
+            }
+            QPushButton#btnQuarantine:hover { background-color: #cf6d17; }
+            QPushButton#btnReplace {
+                background-color: #8e44ad;
+                color: white;
+            }
+            QPushButton#btnReplace:hover { background-color: #7d3c98; }
+            QPushButton#btnCompare {
+                background-color: transparent;
+                color: #2980b9;
+                border: 1px solid #2980b9;
+            }
+            QPushButton#btnCompare:hover { background-color: #eaf4fb; }
+            QTextEdit {
+                font-family: 'Consolas', monospace;
+                font-size: 11px;
+                background-color: #f8f9fa;
+                border: 1px solid #dee2e6;
+                border-radius: 4px;
             }
         """)
 
-        root_layout = QVBoxLayout(self)
-        root_layout.setSpacing(8)
-        root_layout.setContentsMargins(20, 20, 20, 16)
+        root = QVBoxLayout(self)
+        root.setSpacing(8)
+        root.setContentsMargins(20, 20, 20, 16)
 
         # --- Title ---
-        title_lbl = QLabel("🔍  Duplicate File Detected")
-        title_lbl.setObjectName("title")
-        root_layout.addWidget(title_lbl)
+        title = QLabel("Duplicate File Detected")
+        title.setObjectName("title")
+        root.addWidget(title)
 
-        subtitle_lbl = QLabel("The following file appears to be an exact duplicate.")
-        subtitle_lbl.setObjectName("subtitle")
-        root_layout.addWidget(subtitle_lbl)
+        subtitle = QLabel("Review both files before choosing an action.")
+        subtitle.setObjectName("subtitle")
+        root.addWidget(subtitle)
 
-        # --- Separator ---
-        sep1 = QFrame()
-        sep1.setFrameShape(QFrame.Shape.HLine)
-        sep1.setStyleSheet("color: #dee2e6;")
-        root_layout.addWidget(sep1)
+        root.addWidget(self._separator())
 
-        # --- Original path ---
-        orig_label_lbl = QLabel("Original file:")
-        orig_label_lbl.setProperty("class", "fieldLabel")
-        orig_label_lbl.setObjectName("origLabel")
-        orig_label_lbl.setStyleSheet("font-size: 11px; font-weight: bold; color: #495057;")
-        root_layout.addWidget(orig_label_lbl)
+        # --- File info grid ---
+        grid_widget = QWidget()
+        grid = QGridLayout(grid_widget)
+        grid.setContentsMargins(0, 0, 0, 0)
+        grid.setSpacing(4)
 
-        orig_value_lbl = QLabel(self.original_path)
-        orig_value_lbl.setStyleSheet(
-            "font-size: 11px; color: #212529; background-color: #e9ecef;"
-            " border-radius: 4px; padding: 4px 6px;"
-        )
-        orig_value_lbl.setWordWrap(True)
-        orig_value_lbl.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
-        root_layout.addWidget(orig_value_lbl)
+        def _info_label(text: str, bold: bool = False) -> QLabel:
+            lbl = QLabel(text)
+            lbl.setWordWrap(True)
+            lbl.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
+            if bold:
+                lbl.setStyleSheet("font-weight: bold; font-size: 11px; color: #495057;")
+            else:
+                lbl.setStyleSheet(
+                    "font-size: 11px; color: #212529; background-color: #e9ecef;"
+                    " border-radius: 4px; padding: 4px 6px;"
+                )
+            return lbl
 
-        # --- Duplicate path ---
-        dup_label_lbl = QLabel("Duplicate file:")
-        dup_label_lbl.setStyleSheet("font-size: 11px; font-weight: bold; color: #c0392b;")
-        root_layout.addWidget(dup_label_lbl)
+        fa = self._preview_data.get("file_a", {})
+        fb = self._preview_data.get("file_b", {})
 
-        dup_value_lbl = QLabel(self.duplicate_path)
-        dup_value_lbl.setStyleSheet(
+        grid.addWidget(_info_label("Original:", bold=True),   0, 0)
+        grid.addWidget(_info_label(self.original_path),        0, 1)
+        grid.addWidget(_info_label(
+            f"{fa.get('size_human','?')} · Modified {fa.get('modified_at','?')}"
+        ), 1, 1)
+
+        dup_lbl = _info_label("Duplicate:", bold=True)
+        dup_lbl.setStyleSheet("font-weight: bold; font-size: 11px; color: #c0392b;")
+        grid.addWidget(dup_lbl, 2, 0)
+        dup_path_lbl = _info_label(self.duplicate_path)
+        dup_path_lbl.setStyleSheet(
             "font-size: 11px; color: #212529; background-color: #fdecea;"
             " border-radius: 4px; padding: 4px 6px;"
         )
-        dup_value_lbl.setWordWrap(True)
-        dup_value_lbl.setTextInteractionFlags(Qt.TextInteractionFlag.TextSelectableByMouse)
-        root_layout.addWidget(dup_value_lbl)
+        grid.addWidget(dup_path_lbl, 2, 1)
+        grid.addWidget(_info_label(
+            f"{fb.get('size_human','?')} · Modified {fb.get('modified_at','?')}"
+        ), 3, 1)
 
-        # --- Sizes ---
-        orig_size = _format_size(self.original_path)
-        dup_size  = _format_size(self.duplicate_path)
-        size_text = (
-            f"Sizes: {orig_size} (original) / {dup_size} (duplicate)"
-            if orig_size != dup_size
-            else f"Size: {orig_size} each"
-        )
-        size_lbl = QLabel(size_text)
-        size_lbl.setObjectName("sizeLabel")
-        size_lbl.setStyleSheet("font-size: 11px; color: #6c757d; margin-top: 4px;")
-        root_layout.addWidget(size_lbl)
+        grid.setColumnStretch(1, 1)
+        root.addWidget(grid_widget)
 
-        # --- Separator ---
-        sep2 = QFrame()
-        sep2.setFrameShape(QFrame.Shape.HLine)
-        sep2.setStyleSheet("color: #dee2e6;")
-        root_layout.addWidget(sep2)
+        # --- Preview panel (text diff or image thumbnails) ---
+        self._add_preview_panel(root)
+
+        root.addWidget(self._separator())
 
         # --- Buttons ---
-        btn_layout = QHBoxLayout()
-        btn_layout.setSpacing(8)
+        btn_row = QHBoxLayout()
+        btn_row.setSpacing(8)
 
-        btn_keep   = QPushButton("Keep Existing")
-        btn_keep.setObjectName("btnKeepExisting")
-        btn_keep.setToolTip("Keep the original file, take no action on the duplicate.")
-        btn_keep.clicked.connect(self._on_keep_existing)
-        btn_layout.addWidget(btn_keep)
+        def _btn(label: str, obj_name: str, slot) -> QPushButton:
+            b = QPushButton(label)
+            b.setObjectName(obj_name)
+            b.clicked.connect(slot)
+            return b
 
-        btn_both   = QPushButton("Keep Both")
-        btn_both.setObjectName("btnKeepBoth")
-        btn_both.setToolTip("Keep both files (rename handled in Phase 2).")
-        btn_both.clicked.connect(self._on_keep_both)
-        btn_layout.addWidget(btn_both)
+        btn_row.addWidget(_btn("Keep Existing",  "btnKeepExisting",  self._on_keep_existing))
+        btn_row.addWidget(_btn("Keep Both",       "btnKeepBoth",      self._on_keep_both))
+        btn_row.addWidget(_btn("Quarantine",      "btnQuarantine",    self._on_quarantine))
+        btn_row.addWidget(_btn("Replace",         "btnReplace",       self._on_replace))
+        btn_row.addStretch()
+        btn_row.addWidget(_btn("Compare",         "btnCompare",       self._on_compare))
+        btn_row.addWidget(_btn("Cancel",          "btnCancel",        self._on_cancel))
 
-        btn_layout.addStretch()
+        root.addLayout(btn_row)
 
-        btn_cancel = QPushButton("Cancel")
-        btn_cancel.setObjectName("btnCancel")
-        btn_cancel.setToolTip("Close without taking any action.")
-        btn_cancel.clicked.connect(self._on_cancel)
-        btn_layout.addWidget(btn_cancel)
+        # --- Tooltips ---
+        self.findChild(QPushButton, "btnKeepExisting").setToolTip(
+            "Delete the duplicate. Keep the original."
+        )
+        self.findChild(QPushButton, "btnKeepBoth").setToolTip(
+            "Rename the duplicate so both files coexist."
+        )
+        self.findChild(QPushButton, "btnQuarantine").setToolTip(
+            "Move the duplicate to the quarantine folder. Nothing is deleted."
+        )
+        self.findChild(QPushButton, "btnReplace").setToolTip(
+            "Replace the original file with the duplicate's content."
+        )
+        self.findChild(QPushButton, "btnCompare").setToolTip(
+            "View a side-by-side comparison without taking any action."
+        )
 
-        root_layout.addLayout(btn_layout)
+    def _add_preview_panel(self, root: QVBoxLayout) -> None:
+        """
+        Add a preview panel if content is available.
+        For text files: show unified diff in a QTextEdit.
+        For images: show thumbnails side by side (if Pillow available).
+        Skip if neither file has previewable content.
+        """
+
+        diff = self._preview_data.get("diff_lines")
+        fa   = self._preview_data.get("file_a", {})
+        fb   = self._preview_data.get("file_b", {})
+
+        # Text diff
+        if diff is not None:
+            diff_header = QLabel(
+                "No differences found." if not diff
+                else f"Diff ({len(diff)} lines shown):"
+            )
+            diff_header.setStyleSheet("font-size: 11px; font-weight: bold; color: #495057;")
+            root.addWidget(diff_header)
+
+            if diff:
+                diff_box = QTextEdit()
+                diff_box.setReadOnly(True)
+                diff_box.setMaximumHeight(140)
+                diff_box.setPlainText("\n".join(diff))
+                root.addWidget(diff_box)
+            return
+
+        # Image thumbnails
+        if fa.get("preview_type") == "image" and fa.get("content") and fb.get("content"):
+            from PyQt6.QtGui import QPixmap
+            thumb_row = QHBoxLayout()
+
+            for label_text, data in [("Original", fa), ("Duplicate", fb)]:
+                col = QVBoxLayout()
+                lbl = QLabel(label_text)
+                lbl.setStyleSheet("font-size: 11px; font-weight: bold; color: #495057;")
+                lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+                col.addWidget(lbl)
+
+                pixmap = QPixmap()
+                try:
+                    import base64 as _b64
+                    pixmap.loadFromData(_b64.b64decode(data["content"]))
+                    img_lbl = QLabel()
+                    img_lbl.setPixmap(pixmap.scaled(
+                        200, 160,
+                        Qt.AspectRatioMode.KeepAspectRatio,
+                        Qt.TransformationMode.SmoothTransformation,
+                    ))
+                    img_lbl.setAlignment(Qt.AlignmentFlag.AlignCenter)
+                    col.addWidget(img_lbl)
+                except Exception:
+                    col.addWidget(QLabel("(preview unavailable)"))
+
+                thumb_row.addLayout(col)
+
+            root.addLayout(thumb_row)
+
+    def _separator(self) -> QFrame:
+        sep = QFrame()
+        sep.setFrameShape(QFrame.Shape.HLine)
+        sep.setStyleSheet("color: #dee2e6;")
+        return sep
 
     def _on_keep_existing(self) -> None:
         self.chosen_action = "keep_existing"
-        logger.info("[TRAY] user chose keep_existing for duplicate: %s", self.duplicate_path)
+        logger.info("[TRAY] user chose keep_existing: %s", self.duplicate_path)
         self.accept()
 
     def _on_keep_both(self) -> None:
         self.chosen_action = "keep_both"
-        logger.info("[TRAY] user chose keep_both for duplicate: %s", self.duplicate_path)
+        logger.info("[TRAY] user chose keep_both: %s", self.duplicate_path)
+        self.accept()
+
+    def _on_quarantine(self) -> None:
+        self.chosen_action = "quarantine"
+        logger.info("[TRAY] user chose quarantine: %s", self.duplicate_path)
+        self.accept()
+
+    def _on_replace(self) -> None:
+        self.chosen_action = "replace"
+        logger.info("[TRAY] user chose replace: %s", self.duplicate_path)
+        self.accept()
+
+    def _on_compare(self) -> None:
+        self.chosen_action = "compare"
+        logger.info("[TRAY] user chose compare: %s", self.duplicate_path)
         self.accept()
 
     def _on_cancel(self) -> None:
         self.chosen_action = "cancel"
-        logger.info("[TRAY] user cancelled for duplicate: %s", self.duplicate_path)
+        logger.info("[TRAY] user cancelled: %s", self.duplicate_path)
         self.reject()
 
 
@@ -318,6 +414,7 @@ class TrayApplication(QObject):
         self._action_start  = None
         self._action_stop   = None
         self._action_status = None
+        self._main_window   = None
         self._build_tray()
         self._connect_signals()
         self._start_monitoring()
@@ -358,9 +455,9 @@ class TrayApplication(QObject):
 
         menu.addSeparator()
 
-        # Settings placeholder (Phase 3)
-        action_settings = menu.addAction("Settings…")
-        action_settings.setEnabled(False)
+        # Open Dashboard
+        action_dashboard = menu.addAction("Open Dashboard")
+        action_dashboard.triggered.connect(self._on_open_dashboard)
 
         menu.addSeparator()
 
@@ -401,28 +498,56 @@ class TrayApplication(QObject):
     def _on_duplicate_found(self, original_path: str, duplicate_path: str) -> None:
         """
         Called on main thread when a duplicate is confirmed.
-
-        1. Log the event.
-        2. Show DuplicateAlertDialog.
-        3. Log the user's chosen action.
-        4. Show a tray balloon summary.
+        1. Show DuplicateAlertDialog to get user's chosen action.
+        2. If action is not "cancel" or "compare": call FileExecutor.execute().
+        3. Show tray balloon with result.
         """
         logger.info("[TRAY] duplicate alert: %s", duplicate_path)
 
         dlg = DuplicateAlertDialog(original_path, duplicate_path, parent=None)
         dlg.exec()
 
-        logger.info("[TRAY] user action for %s: %s", duplicate_path, dlg.chosen_action)
+        action = dlg.chosen_action
+        logger.info("[TRAY] user action for %s: %s", duplicate_path, action)
+
+        if action in ("cancel", "compare"):
+            # No file operation — user is just viewing or dismissed
+            if self.tray and action == "compare":
+                self.tray.showMessage(
+                    "DDAS — Compare",
+                    "No action taken. Files have been left unchanged.",
+                    QSystemTrayIcon.MessageIcon.Information,
+                    3000,
+                )
+            return
+
+        # Execute the chosen action
+        success = executor.execute(action, original_path, duplicate_path)
 
         if self.tray:
             orig_name = os.path.basename(original_path)
             dup_name  = os.path.basename(duplicate_path)
-            self.tray.showMessage(
-                "DDAS — Duplicate Found",
-                f"'{dup_name}' is a duplicate of '{orig_name}'.\nAction: {dlg.chosen_action}",
-                QSystemTrayIcon.MessageIcon.Information,
-                6000,
-            )
+            if success:
+                action_labels = {
+                    "keep_existing": "Duplicate deleted",
+                    "keep_both":     "Duplicate renamed — both files kept",
+                    "quarantine":    "Duplicate moved to quarantine",
+                    "replace":       "Original replaced with duplicate",
+                }
+                msg = action_labels.get(action, f"Action '{action}' completed")
+                self.tray.showMessage(
+                    "DDAS — Action Completed",
+                    f"{msg}.\nFile: {dup_name}",
+                    QSystemTrayIcon.MessageIcon.Information,
+                    5000,
+                )
+            else:
+                self.tray.showMessage(
+                    "DDAS — Action Failed",
+                    f"Could not complete '{action}' for '{dup_name}'.\nSee logs for details.",
+                    QSystemTrayIcon.MessageIcon.Warning,
+                    6000,
+                )
 
     @pyqtSlot()
     def _on_monitoring_started(self) -> None:
@@ -472,3 +597,13 @@ class TrayApplication(QObject):
         _db.close()
         settings.save()
         self.app.quit()
+
+    def _on_open_dashboard(self) -> None:
+        """Open the main dashboard window."""
+        if self._main_window is not None:
+            self._main_window.show_and_raise()
+        logger.debug("[TRAY] dashboard opened.")
+
+    def set_main_window(self, window) -> None:
+        """Called from main.py after MainWindow is created."""
+        self._main_window = window

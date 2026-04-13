@@ -1,0 +1,155 @@
+# ================================
+
+# 🐍 Python General
+
+# ================================
+
+**pycache**/
+*.py[cod]
+*$py.class
+
+# C extensions
+
+*.so
+
+# Distribution / packaging
+
+.Python
+build/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ================================
+
+# 🧪 Virtual Environments
+
+# ================================
+
+venv/
+.env/
+.venv/
+env/
+ENV/
+
+# ================================
+
+# 🔐 Environment Variables
+
+# ================================
+
+.env
+.env.*
+
+# ================================
+
+# 🗄️ Database Files (SQLite)
+
+# ================================
+
+*.db
+*.sqlite3
+*.db-wal
+*.db-shm
+
+# ================================
+
+# 📜 Logs
+
+# ================================
+
+logs/
+*.log
+
+# ================================
+
+# 🧾 Runtime / Temp Files
+
+# ================================
+
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*.cache
+
+# ================================
+
+# 🖥️ OS Files
+
+# ================================
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ================================
+
+# 🧠 IDE / Editor Files
+
+# ================================
+
+.vscode/
+.idea/
+*.iml
+
+# ================================
+
+# 🧪 Testing / Coverage
+
+# ================================
+
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# ================================
+
+# 📦 PyInstaller / Executables
+
+# ================================
+
+*.spec
+*.exe
+*.dll
+
+# ================================
+
+# ⚙️ Project-Specific (DDAS)
+
+# ================================
+
+# User preferences / runtime configs
+
+config/user_prefs.json
+
+# Monitoring temp state (if any future cache added)
+
+monitor_cache/
+scan_cache/
+
+# Duplicate detection temporary storage
+
+duplicates_tmp/
+
+# ================================
+
+# 🔒 Optional (Uncomment if needed)
+
+# ================================
+
+# secrets.json
+
+# credentials.json
